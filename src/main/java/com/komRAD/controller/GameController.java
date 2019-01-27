@@ -34,8 +34,7 @@ public class GameController {
 
     @GetMapping(value = "/gamesByTitle/{gameTitle}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public GameListing getGamesByTitle(
-            @PathVariable String gameTitle
-    ) {
+            @PathVariable String gameTitle) {
         List<Game> gameList = StreamSupport.stream(gameRepository.findAll().spliterator(), false).filter(game -> game.getTitle().equals(gameTitle)).collect(Collectors.toList());
         return new GameListing(gameList, gameList.size());
     }
@@ -59,6 +58,30 @@ public class GameController {
     @ResponseStatus(HttpStatus.CREATED)
     public void addGame(@RequestBody GameDto gameDto) {
         gameRepository.save(gameDto.toDomain());
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteAllGames() {
+        gameRepository.deleteAll();
+    }
+
+    @DeleteMapping("/deletById/{gameId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteById(@PathVariable Long gameId) {
+        gameRepository.deleteById(gameId);
+
+    }
+
+    @PostMapping(value = "update/{gameId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseStatus(HttpStatus.FOUND)
+    public void updateGameById(@PathVariable Long gameId, @RequestBody GameDto gameDto) {
+        Game gameToUpdate = gameRepository.findById(gameId).get();
+        gameToUpdate.setAuthor(gameDto.toDomain().getAuthor());
+        gameToUpdate.setGameType(gameDto.toDomain().getGameType());
+        gameToUpdate.setTitle(gameDto.toDomain().getTitle());
+        gameToUpdate.setNumberOfPlayers(gameDto.toDomain().getNumberOfPlayers());
+        gameRepository.save(gameToUpdate);
     }
 
 }
