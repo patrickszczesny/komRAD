@@ -22,14 +22,37 @@ public class GameController {
     public GameRepository gameRepository;
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public GameListing getListing(
-            @RequestParam(value = "id", required = false) Long id,
-            @RequestParam(value = "title", required = false) String title,
-            @RequestParam(value = "author", required = false) String author,
-            @RequestParam(value = "numberOfPlayers", required = false) Integer numberOfPlayers,
-            @RequestParam(value = "gameType", required = false) GameTypes gameType){
+    public GameListing getAllGames() {
     List<Game> gameList = StreamSupport.stream(gameRepository.findAll().spliterator(),false).collect(Collectors.toList());
     return new GameListing(gameList, gameList.size());
+    }
+
+    @GetMapping(value = "/gameById/{gameId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public GameDto getGameById(@PathVariable Long gameId) {
+        return GameDto.fromDomain(gameRepository.findById(gameId).get());
+    }
+
+    @GetMapping(value = "/gamesByTitle/{gameTitle}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public GameListing getGamesByTitle(
+            @PathVariable String gameTitle
+    ) {
+        List<Game> gameList = StreamSupport.stream(gameRepository.findAll().spliterator(), false).filter(game -> game.getTitle().equals(gameTitle)).collect(Collectors.toList());
+        return new GameListing(gameList, gameList.size());
+    }
+
+    @GetMapping(value = "/gamesByNumberOfPlayers/{gamesNumberOfPlayers}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public GameListing getGamesByNumberOfPlayers(
+            @PathVariable Integer gamesNumberOfPlayers) {
+        List<Game> gameList = StreamSupport.stream(gameRepository.findAll().spliterator(), false).filter(game -> game.getNumberOfPlayers().equals(gamesNumberOfPlayers)).collect(Collectors.toList());
+        return new GameListing(gameList, gameList.size());
+    }
+
+    @GetMapping(value = "/gamesByAuthor/{gamesAuthor}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public GameListing getGamesByAuthor(
+            @PathVariable String gamesAuthor
+    ) {
+        List<Game> gameList = StreamSupport.stream(gameRepository.findAll().spliterator(), false).filter(game -> game.getAuthor().equals(gamesAuthor)).collect(Collectors.toList());
+        return new GameListing(gameList, gameList.size());
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
