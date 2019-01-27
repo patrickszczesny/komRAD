@@ -1,0 +1,6 @@
+spring:
+  application:
+    name: komRAD-API
+  cloud:
+    config:
+      uri: http://localhost:8000
