@@ -16,7 +16,7 @@ public class Venue {
     private String address;
     private String city;
     private String zipCode;
-    private String Country;
+    private String country;
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "venues_meetings",
@@ -32,7 +32,7 @@ public class Venue {
         this.address = address;
         this.city = city;
         this.zipCode = zipCode;
-        Country = country;
+        this.country = country;
     }
 
     public Long getId() {
@@ -72,11 +72,11 @@ public class Venue {
     }
 
     public String getCountry() {
-        return Country;
+        return country;
     }
 
     public void setCountry(String country) {
-        Country = country;
+        this.country = country;
     }
 
     public Set<Meeting> getMeetings() {
@@ -97,12 +97,25 @@ public class Venue {
                 Objects.equals(address, venue.address) &&
                 Objects.equals(city, venue.city) &&
                 Objects.equals(zipCode, venue.zipCode) &&
-                Objects.equals(Country, venue.Country) &&
+                Objects.equals(country, venue.country) &&
                 Objects.equals(meetings, venue.meetings);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameOfVenues, address, city, zipCode, Country, meetings);
+        return Objects.hash(id, nameOfVenues, address, city, zipCode, country, meetings);
+    }
+
+    @Override
+    public String toString() {
+        return "Venue{" +
+                "id=" + id +
+                ", nameOfVenues='" + nameOfVenues + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", zipCode='" + zipCode + '\'' +
+                ", country='" + country + '\'' +
+                ", meetings=" + meetings +
+                '}';
     }
 }

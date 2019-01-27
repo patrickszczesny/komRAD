@@ -87,4 +87,15 @@ public class Player {
     public int hashCode() {
         return Objects.hash(id, userName, password, games, meetings);
     }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", games=" + games +
+                ", meetings=" + meetings +
+                '}';
+    }
 }

@@ -85,4 +85,15 @@ public class Meeting {
     public int hashCode() {
         return Objects.hash(id, dateOfTheMeeting, venueOfMeeting, players, game);
     }
+
+    @Override
+    public String toString() {
+        return "Meeting{" +
+                "id=" + id +
+                ", dateOfTheMeeting='" + dateOfTheMeeting + '\'' +
+                ", venueOfMeeting=" + venueOfMeeting +
+                ", players=" + players +
+                ", game=" + game +
+                '}';
+    }
 }
