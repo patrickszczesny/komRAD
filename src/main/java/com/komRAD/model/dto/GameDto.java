@@ -17,7 +17,7 @@ public class GameDto {
     private final GameTypes gameType;
 
 
-    public GameDto(
+    private GameDto(
             @JsonProperty("id") Long id,
             @JsonProperty("title") String title,
             @JsonProperty("author") String author,
@@ -53,7 +53,7 @@ public class GameDto {
     public Game toDomain(){return new Game(title,author,numberOfPlayers,gameType);}
 
     public static GameDto fromDomain(Game game) {
-        return new GameDto(game.getId(),
+        return new GameDto(game.getGameId(),
                 game.getTitle(),
                 game.getAuthor(),
                 game.getNumberOfPlayers(),

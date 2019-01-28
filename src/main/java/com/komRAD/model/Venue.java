@@ -10,7 +10,7 @@ public class Venue {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long venueId;
 
     private String nameOfVenues;
     private String address;
@@ -35,8 +35,8 @@ public class Venue {
         this.country = country;
     }
 
-    public Long getId() {
-        return id;
+    public Long getVenueId() {
+        return venueId;
     }
 
     public String getNameOfVenues() {
@@ -92,7 +92,7 @@ public class Venue {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Venue venue = (Venue) o;
-        return Objects.equals(id, venue.id) &&
+        return Objects.equals(venueId, venue.venueId) &&
                 Objects.equals(nameOfVenues, venue.nameOfVenues) &&
                 Objects.equals(address, venue.address) &&
                 Objects.equals(city, venue.city) &&
@@ -103,13 +103,13 @@ public class Venue {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, nameOfVenues, address, city, zipCode, country, meetings);
+        return Objects.hash(venueId, nameOfVenues, address, city, zipCode, country, meetings);
     }
 
     @Override
     public String toString() {
         return "Venue{" +
-                "id=" + id +
+                "venueId=" + venueId +
                 ", nameOfVenues='" + nameOfVenues + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +

@@ -2,8 +2,6 @@ package com.komRAD.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.komRAD.enums.GameTypes;
-import com.komRAD.model.Game;
 import com.komRAD.model.Player;
 
 import java.util.Objects;
@@ -15,7 +13,7 @@ public class PlayerDto {
     private final String userName;
     private final String password;
 
-    public PlayerDto(
+    private PlayerDto(
             @JsonProperty("id") Long id,
             @JsonProperty("userName") String userName,
             @JsonProperty("password") String password) {
@@ -41,7 +39,7 @@ public class PlayerDto {
     }
 
     public static PlayerDto fromDomain(Player player) {
-        return new PlayerDto(player.getId(),
+        return new PlayerDto(player.getPlayerId(),
                 player.getUserName(),
                 player.getPassword());
     }

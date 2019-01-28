@@ -2,8 +2,6 @@ package com.komRAD.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.komRAD.enums.GameTypes;
-import com.komRAD.model.Game;
 import com.komRAD.model.Venue;
 
 import java.util.Objects;
@@ -18,7 +16,7 @@ public class VenueDto {
     private final String zipCode;
     private final String country;
 
-    public VenueDto(
+    private VenueDto(
             @JsonProperty("id") Long id,
             @JsonProperty("nameOfVenues") String nameOfVenues,
             @JsonProperty("address") String address,
@@ -63,7 +61,7 @@ public class VenueDto {
     }
 
     public static VenueDto fromDomain(Venue venue) {
-        return new VenueDto(venue.getId(),
+        return new VenueDto(venue.getVenueId(),
                 venue.getNameOfVenues(),
                 venue.getAddress(),
                 venue.getCity(),

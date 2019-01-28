@@ -10,7 +10,7 @@ public class Meeting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long meetingId;
 
     private String dateOfTheMeeting;
 
@@ -33,8 +33,8 @@ public class Meeting {
         this.game = game;
     }
 
-    public Long getId() {
-        return id;
+    public Long getMeetingId() {
+        return meetingId;
     }
 
     public String getDateOfTheMeeting() {
@@ -74,7 +74,7 @@ public class Meeting {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Meeting meeting = (Meeting) o;
-        return Objects.equals(id, meeting.id) &&
+        return Objects.equals(meetingId, meeting.meetingId) &&
                 Objects.equals(dateOfTheMeeting, meeting.dateOfTheMeeting) &&
                 Objects.equals(venueOfMeeting, meeting.venueOfMeeting) &&
                 Objects.equals(players, meeting.players) &&
@@ -83,13 +83,13 @@ public class Meeting {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, dateOfTheMeeting, venueOfMeeting, players, game);
+        return Objects.hash(meetingId, dateOfTheMeeting, venueOfMeeting, players, game);
     }
 
     @Override
     public String toString() {
         return "Meeting{" +
-                "id=" + id +
+                "meetingId=" + meetingId +
                 ", dateOfTheMeeting='" + dateOfTheMeeting + '\'' +
                 ", venueOfMeeting=" + venueOfMeeting +
                 ", players=" + players +

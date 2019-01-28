@@ -19,7 +19,7 @@ public class MeetingDto {
     private final Set<Player> players;
     private final Game game;
 
-    public MeetingDto(
+    private MeetingDto(
             @JsonProperty("id") Long id,
             @JsonProperty("dateOfTheMeeting") String dateOfTheMeeting,
             @JsonProperty("venueOfMeeting") Venue venueOfMeeting,
@@ -59,7 +59,7 @@ public class MeetingDto {
     }
 
     public static MeetingDto fromDomain(Meeting meeting) {
-        return new MeetingDto(meeting.getId(),
+        return new MeetingDto(meeting.getMeetingId(),
                 meeting.getDateOfTheMeeting(),
                 meeting.getVenueOfMeeting(),
                 meeting.getPlayers(),

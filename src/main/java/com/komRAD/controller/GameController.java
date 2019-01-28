@@ -1,6 +1,5 @@
 package com.komRAD.controller;
 
-import com.komRAD.enums.GameTypes;
 import com.komRAD.model.Game;
 import com.komRAD.model.dto.GameDto;
 import com.komRAD.model.listing.GameListing;
@@ -73,7 +72,7 @@ public class GameController {
 
     }
 
-    @PostMapping(value = "update/{gameId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PutMapping(value = "update/{gameId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.FOUND)
     public void updateGameById(@PathVariable Long gameId, @RequestBody GameDto gameDto) {
         Game gameToUpdate = gameRepository.findById(gameId).get();
@@ -81,6 +80,8 @@ public class GameController {
         gameToUpdate.setGameType(gameDto.toDomain().getGameType());
         gameToUpdate.setTitle(gameDto.toDomain().getTitle());
         gameToUpdate.setNumberOfPlayers(gameDto.toDomain().getNumberOfPlayers());
+        gameToUpdate.setMeetings(gameDto.toDomain().getMeetings());
+        gameToUpdate.setPlayers(gameDto.toDomain().getPlayers());
         gameRepository.save(gameToUpdate);
     }
 

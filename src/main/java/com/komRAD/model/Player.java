@@ -10,7 +10,7 @@ public class Player {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long playerId;
 
     private String userName;
     private String password;
@@ -35,8 +35,8 @@ public class Player {
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public Long getPlayerId() {
+        return playerId;
     }
 
     public Set<Game> getGames() {
@@ -76,7 +76,7 @@ public class Player {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Player player = (Player) o;
-        return Objects.equals(id, player.id) &&
+        return Objects.equals(playerId, player.playerId) &&
                 Objects.equals(userName, player.userName) &&
                 Objects.equals(password, player.password) &&
                 Objects.equals(games, player.games) &&
@@ -85,13 +85,13 @@ public class Player {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userName, password, games, meetings);
+        return Objects.hash(playerId, userName, password, games, meetings);
     }
 
     @Override
     public String toString() {
         return "Player{" +
-                "id=" + id +
+                "playerId=" + playerId +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
                 ", games=" + games +

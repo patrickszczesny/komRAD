@@ -12,7 +12,7 @@ public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Long gameId;
 
     private String title;
     private String author;
@@ -38,8 +38,8 @@ public class Game {
         this.gameType = gameType;
     }
 
-    public Long getId() {
-        return id;
+    public Long getGameId() {
+        return gameId;
     }
 
     public String getTitle() {
@@ -95,7 +95,7 @@ public class Game {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return Objects.equals(id, game.id) &&
+        return Objects.equals(gameId, game.gameId) &&
                 Objects.equals(title, game.title) &&
                 Objects.equals(numberOfPlayers, game.numberOfPlayers) &&
                 gameType == game.gameType &&
@@ -105,13 +105,13 @@ public class Game {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, numberOfPlayers, gameType, players, meetings);
+        return Objects.hash(gameId, title, numberOfPlayers, gameType, players, meetings);
     }
 
     @Override
     public String toString() {
         return "Game{" +
-                "id=" + id +
+                "gameId=" + gameId +
                 ", title='" + title + '\'' +
                 ", author='" + author + '\'' +
                 ", numberOfPlayers=" + numberOfPlayers +
