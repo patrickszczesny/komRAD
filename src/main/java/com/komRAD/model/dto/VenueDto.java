@@ -2,9 +2,11 @@ package com.komRAD.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.komRAD.model.Meeting;
 import com.komRAD.model.Venue;
 
 import java.util.Objects;
+import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class VenueDto {
@@ -56,13 +58,14 @@ public class VenueDto {
         return country;
     }
 
+
     public Venue toDomain() {
         return new Venue(nameOfVenues, address, city, zipCode, country);
     }
 
     public static VenueDto fromDomain(Venue venue) {
         return new VenueDto(venue.getVenueId(),
-                venue.getNameOfVenues(),
+                venue.getNameOfVenue(),
                 venue.getAddress(),
                 venue.getCity(),
                 venue.getZipCode(),

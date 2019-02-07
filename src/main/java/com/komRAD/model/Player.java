@@ -1,31 +1,36 @@
 package com.komRAD.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "players")
+@Table(name = "PLAYERS")
 public class Player {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "PLAYER_ID")
     private Long playerId;
 
+    @Column(name = "USERNAME", unique = true, nullable = false)
     private String userName;
+
+    @Column(name = "PASSWORD", nullable = false)
     private String password;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "players_games",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "game_id"))
-    private Set<Game> games;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "PLAYERS_GAMES",
+            joinColumns = @JoinColumn(name = "PLAYER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "GAME_ID"))
+    private Set<Game> games = new HashSet<>();
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "players_meetings",
-            joinColumns = @JoinColumn(name = "player_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
-    private Set<Meeting> meetings;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @JoinTable(name = "PLAYERS_MEETINGS",
+            joinColumns = @JoinColumn(name = "PLAYER_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MEETING_ID"))
+    private Set<Meeting> meetings = new HashSet<>();
 
     public Player() {
     }
@@ -33,6 +38,13 @@ public class Player {
     public Player(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public Player(String userName, String password, Set<Game> games, Set<Meeting> meetings) {
+        this.userName = userName;
+        this.password = password;
+        this.games = games;
+        this.meetings = meetings;
     }
 
     public Long getPlayerId() {

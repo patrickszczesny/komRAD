@@ -1,6 +1,7 @@
 package com.komRAD.controller;
 
 import com.komRAD.model.Meeting;
+import com.komRAD.model.Player;
 import com.komRAD.model.dto.MeetingDto;
 import com.komRAD.model.listing.MeetingListing;
 import com.komRAD.service.MeetingRepository;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -65,7 +67,7 @@ public class MeetingController {
 
     @PutMapping(value = "update/{meetingId}", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseStatus(HttpStatus.FOUND)
-    public void updatePlayerById(@PathVariable Long meetingId, @RequestBody MeetingDto meetingDto) {
+    public void updateMeetingById(@PathVariable Long meetingId, @RequestBody MeetingDto meetingDto) {
         Meeting meetingToUpdate = meetingRepository.findById(meetingId).get();
         meetingToUpdate.setDateOfTheMeeting(meetingDto.toDomain().getDateOfTheMeeting());
         meetingToUpdate.setGame(meetingDto.toDomain().getGame());

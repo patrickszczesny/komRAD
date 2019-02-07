@@ -27,12 +27,12 @@ public class PlayerController {
     }
 
     @GetMapping(value = "/playerById/{playerId}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public PlayerDto getGameById(@PathVariable Long playerId) {
+    public PlayerDto getPlayersById(@PathVariable Long playerId) {
         return PlayerDto.fromDomain(playerRepository.findById(playerId).get());
     }
 
-    @GetMapping(value = "/playerByTitle/{userName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public PlayerListing getGamesByTitle(
+    @GetMapping(value = "/playerByUserName/{userName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public PlayerListing getPlayersByUserName(
             @PathVariable String userName) {
         List<Player> playersList = StreamSupport.stream(playerRepository.findAll().spliterator(), false).filter(player -> player.getUserName().equals(userName)).collect(Collectors.toList());
         return new PlayerListing(playersList, playersList.size());

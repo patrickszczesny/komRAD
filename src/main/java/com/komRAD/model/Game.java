@@ -11,27 +11,42 @@ import java.util.Set;
 public class Game {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "GAME_ID")
     private Long gameId;
 
+    @Column(name = "TITLE", nullable = false)
     private String title;
+
+    @Column(name = "AUTHOR", nullable = false)
     private String author;
+
+    @Column(name = "NUMBER_OF_PLAYERS", nullable = false)
     private Integer numberOfPlayers;
+
+    @Column(name = "GAME_TYPE", nullable = false)
     private GameTypes gameType;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "games")
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE}, mappedBy = "games")
     private Set<Player> players;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "game_meetings",
-            joinColumns = @JoinColumn(name = "game_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "GAME_MEETINGS",
+            joinColumns = @JoinColumn(name = "GAME_ID"),
+            inverseJoinColumns = @JoinColumn(name = "MEETING_ID"))
     private Set<Meeting> meetings;
 
     public Game() {
     }
 
     public Game(String title, String author, Integer numberOfPlayers, GameTypes gameType) {
+        this.title = title;
+        this.author = author;
+        this.numberOfPlayers = numberOfPlayers;
+        this.gameType = gameType;
+    }
+
+    public Game(String title, String author, Integer numberOfPlayers, GameTypes gameType, Set<Player> players, Set<Meeting> meetings) {
         this.title = title;
         this.author = author;
         this.numberOfPlayers = numberOfPlayers;
@@ -79,6 +94,8 @@ public class Game {
     }
 
     public void setPlayers(Set<Player> players) {
+        if (this.players.containsAll(players))
+            return;
         this.players = players;
     }
 

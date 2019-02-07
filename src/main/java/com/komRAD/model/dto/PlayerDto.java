@@ -2,9 +2,13 @@ package com.komRAD.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.komRAD.model.Game;
+import com.komRAD.model.Meeting;
 import com.komRAD.model.Player;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class PlayerDto {
@@ -13,10 +17,12 @@ public class PlayerDto {
     private final String userName;
     private final String password;
 
+
     private PlayerDto(
             @JsonProperty("id") Long id,
             @JsonProperty("userName") String userName,
-            @JsonProperty("password") String password) {
+            @JsonProperty("password") String password
+    ) {
         this.id = id;
         this.userName = userName;
         this.password = password;

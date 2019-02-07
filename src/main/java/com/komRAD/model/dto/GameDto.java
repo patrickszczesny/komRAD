@@ -4,8 +4,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.komRAD.enums.GameTypes;
 import com.komRAD.model.Game;
+import com.komRAD.model.Meeting;
+import com.komRAD.model.Player;
 
 import java.util.Objects;
+import java.util.Set;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class GameDto {
@@ -22,7 +25,8 @@ public class GameDto {
             @JsonProperty("title") String title,
             @JsonProperty("author") String author,
             @JsonProperty("numberOfPlayers") Integer numberOfPlayers,
-            @JsonProperty("gameType") GameTypes gameType) {
+            @JsonProperty("gameType") GameTypes gameType
+    ) {
         this.id = id;
         this.title = title;
         this.author = author;
@@ -50,6 +54,9 @@ public class GameDto {
         return gameType;
     }
 
+    public Game toDomainFull() {
+        return new Game(title, author, numberOfPlayers, gameType);
+    }
     public Game toDomain(){return new Game(title,author,numberOfPlayers,gameType);}
 
     public static GameDto fromDomain(Game game) {

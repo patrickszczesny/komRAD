@@ -9,26 +9,36 @@ import java.util.Set;
 public class Venue {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "VENUE_ID")
     private Long venueId;
 
-    private String nameOfVenues;
+    @Column(name = "NAME_OF_VENUE", nullable = false)
+    private String nameOfVenue;
+
+    @Column(name = "ADDRESS", nullable = false)
     private String address;
+
+    @Column(name = "CITY", nullable = false)
     private String city;
+
+    @Column(name = "ZIP_CODE", nullable = false)
     private String zipCode;
+
+    @Column(name = "COUNTRY", nullable = false)
     private String country;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "venues_meetings",
-            joinColumns = @JoinColumn(name = "venue_id"),
-            inverseJoinColumns = @JoinColumn(name = "meeting_id"))
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinTable(name = "VENUES_MEETINGS",
+            joinColumns = {@JoinColumn(name = "VENUE_ID")},
+            inverseJoinColumns = {@JoinColumn(name = "MEETING_ID")})
     private Set<Meeting> meetings;
 
     public Venue() {
     }
 
     public Venue(String nameOfVenues, String address, String city, String zipCode, String country) {
-        this.nameOfVenues = nameOfVenues;
+        this.nameOfVenue = nameOfVenues;
         this.address = address;
         this.city = city;
         this.zipCode = zipCode;
@@ -39,12 +49,12 @@ public class Venue {
         return venueId;
     }
 
-    public String getNameOfVenues() {
-        return nameOfVenues;
+    public String getNameOfVenue() {
+        return nameOfVenue;
     }
 
-    public void setNameOfVenues(String nameOfVenues) {
-        this.nameOfVenues = nameOfVenues;
+    public void setNameOfVenue(String nameOfVenue) {
+        this.nameOfVenue = nameOfVenue;
     }
 
     public String getAddress() {
@@ -93,7 +103,7 @@ public class Venue {
         if (o == null || getClass() != o.getClass()) return false;
         Venue venue = (Venue) o;
         return Objects.equals(venueId, venue.venueId) &&
-                Objects.equals(nameOfVenues, venue.nameOfVenues) &&
+                Objects.equals(nameOfVenue, venue.nameOfVenue) &&
                 Objects.equals(address, venue.address) &&
                 Objects.equals(city, venue.city) &&
                 Objects.equals(zipCode, venue.zipCode) &&
@@ -103,14 +113,14 @@ public class Venue {
 
     @Override
     public int hashCode() {
-        return Objects.hash(venueId, nameOfVenues, address, city, zipCode, country, meetings);
+        return Objects.hash(venueId, nameOfVenue, address, city, zipCode, country, meetings);
     }
 
     @Override
     public String toString() {
         return "Venue{" +
                 "venueId=" + venueId +
-                ", nameOfVenues='" + nameOfVenues + '\'' +
+                ", nameOfVenue='" + nameOfVenue + '\'' +
                 ", address='" + address + '\'' +
                 ", city='" + city + '\'' +
                 ", zipCode='" + zipCode + '\'' +

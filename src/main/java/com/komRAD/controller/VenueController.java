@@ -33,7 +33,7 @@ public class VenueController {
 
     @GetMapping(value = "/venuesByName{venueName}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public VenueListing getVenueByName(@PathVariable String venueName) {
-        List<Venue> venuesList = StreamSupport.stream(venueRepository.findAll().spliterator(), false).filter(venue -> venue.getNameOfVenues().equals(venueName)).collect(Collectors.toList());
+        List<Venue> venuesList = StreamSupport.stream(venueRepository.findAll().spliterator(), false).filter(venue -> venue.getNameOfVenue().equals(venueName)).collect(Collectors.toList());
         return new VenueListing(venuesList, venuesList.size());
     }
 
@@ -76,7 +76,7 @@ public class VenueController {
         venueToUpdate.setCountry(venueDto.toDomain().getCountry());
         venueToUpdate.setZipCode(venueDto.toDomain().getZipCode());
         venueToUpdate.setMeetings(venueDto.toDomain().getMeetings());
-        venueToUpdate.setNameOfVenues(venueDto.toDomain().getNameOfVenues());
+        venueToUpdate.setNameOfVenue(venueDto.toDomain().getNameOfVenue());
         venueRepository.save(venueToUpdate);
     }
 

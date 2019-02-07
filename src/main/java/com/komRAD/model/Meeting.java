@@ -1,24 +1,27 @@
 package com.komRAD.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 @Entity
-@Table(name = "meetings")
+@Table(name = "MEETINGS")
 public class Meeting {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "MEETING_ID")
     private Long meetingId;
 
+    @Column(name = "DATE_OF_THE_MEETING", nullable = false)
     private String dateOfTheMeeting;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Venue venueOfMeeting;
 
-    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "meetings")
-    private Set<Player> players;
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "meetings")
+    private Set<Player> players = new HashSet<>();
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Game game;
@@ -58,6 +61,8 @@ public class Meeting {
     }
 
     public void setPlayers(Set<Player> players) {
+        if (this.players.contains(players))
+            return;
         this.players = players;
     }
 
@@ -96,4 +101,5 @@ public class Meeting {
                 ", game=" + game +
                 '}';
     }
+
 }
