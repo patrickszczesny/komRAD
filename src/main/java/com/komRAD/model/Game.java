@@ -31,9 +31,6 @@ public class Game {
     private Set<Player> players;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "GAME_MEETINGS",
-            joinColumns = @JoinColumn(name = "GAME_ID"),
-            inverseJoinColumns = @JoinColumn(name = "MEETING_ID"))
     private Set<Meeting> meetings;
 
     public Game() {

@@ -29,9 +29,6 @@ public class Venue {
     private String country;
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinTable(name = "VENUES_MEETINGS",
-            joinColumns = {@JoinColumn(name = "VENUE_ID")},
-            inverseJoinColumns = {@JoinColumn(name = "MEETING_ID")})
     private Set<Meeting> meetings;
 
     public Venue() {

@@ -20,6 +20,7 @@ public class Meeting {
     @ManyToOne(fetch = FetchType.EAGER)
     private Venue venueOfMeeting;
 
+    @ElementCollection
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "meetings")
     private Set<Player> players = new HashSet<>();
 
